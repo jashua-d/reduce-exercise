@@ -110,13 +110,29 @@ Examples:
     partition(names, isLongerThanThreeCharacters) // [['Elie', 'Colt', 'Matt'], ['Tim']]
 */
 
-function partition(arr, cb){
-    return arr.reduce(function(acc,next){
-        if(cb(next)){
-            acc[0].push(next);
+function partition(arr, callback) {
+    return arr.reduce(function(result, value) {
+        if (callback(value)) {
+            result[0].push(value);
         } else {
-            acc[1].push(next);
+            result[1].push(value);
         }
-        return acc;
-    }, [[],[]]);
-};
+        return result;
+    }, [[], []]); 
+}
+
+
+function isEven(val) {
+    return val % 2 === 0;
+}
+
+const arr3 = [1, 2, 3, 4, 5, 6, 7, 8];
+console.log(partition(arr, isEven)); 
+
+function isLongerThanThreeCharacters(val) {
+    return val.length > 3;
+}
+
+const names = ['Elie', 'Colt', 'Tim', 'Matt'];
+console.log(partition(names, isLongerThanThreeCharacters)); 
+
